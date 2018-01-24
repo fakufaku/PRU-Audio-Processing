@@ -7,8 +7,7 @@ eps = sys.float_info.epsilon
 def P_hat(N, M, R, fs):
 
     n_points = 1000
-    #freqs = np.linspace(0,(R / 2) * (1 / M),n_points)
-    freqs = np.linspace(0,(R / 2),n_points)
+    freqs = np.linspace(0,(R / 2) * (1 / M),n_points)
     P_est = np.zeros((n_points,1))
     P = P_est
 
@@ -57,17 +56,19 @@ if __name__ == "__main__":
     for r in range(1, R//2):
         plt.axvline(x=r - 8000 / fr, color='r', linestyle='-')
         plt.axvline(x=r + 8000 / fr, color='r', linestyle='-')
+    plt.axvline(x=R // 2 - 8000 / fr, color='r', linestyle='-')
 
     # add plot of f_c line
 
     plt.tight_layout()
     plt.title('N=%d, M=%d, R=%d, B=%d'%(N,M,R,B), fontsize=20)
     plt.grid()
-    plt.xlabel('Frequency [Hz]', fontsize=20)
+    plt.xlabel('Folds', fontsize=20)
     plt.ylabel('Attenuation [dB]', fontsize=20)
+    plt.xlim([0, R / 2])
     plt.ylim([-120,0])
     plt.legend(['P', 'Cutoff', '8kHz'], fontsize=20)
 
     plt.tight_layout(pad=0.1)
 
-    plt.show()
+    plt.show(block=True)
